@@ -1,3 +1,25 @@
+# Note
+This is a personal fork of the open HayBox PR Request for Rivals 2 support but optimized for:
+- Tilt Stick C Stick
+- C Stick aerials
+
+Concretely:
+**Default Mode is Rivals 2**
+
+**ModX on Platforms now crouches (rather than ModY)**
+
+Previously, ModX had the higher horizontal direction but lower vertical than ModY. I made it so ModX is higher across all cardinal directions by swapping the vertical modifier values. This is more intuitive for me.
+
+
+**SOCD on A button with directions**
+
+This makes it impossible to do directional aerials with the A button; it will always output Nair.
+This is a bit of a grey area of whether it's ok to do. I have found no official rulings and the in game controls allow setting aerial grab/parry to nair only
+So I figured it would be fine. Importantly this also means that tilts on the ground will not work without C-Stick buttons (you can still angle them by using the left direction up/down together with CStick buttons).
+*Also: Dash Attack can only be consistently done with any C Stick button!*.
+
+If this very specific set of changes suits you, feel free to use it.
+
 # HayBox
 
 HayBox is a modular, cross-platform firmware for digital or mixed analog/digital controllers, primarily targeted at [B0XX](https://b0xx.com)-style controllers.
@@ -7,27 +29,45 @@ HayBox is a modular, cross-platform firmware for digital or mixed analog/digital
 
 ## Table of Contents
 
-* [Features](#features)
-* [Installation](#installation)
-  * [Pre-built binaries](#pre-built-binaries)
-  * [Building from source](#building-from-source)
-* [Usage](#usage)
-  * [Default button holds](#default-button-holds)
-  * [Dolphin setup](#dolphin-setup)
-* [Customisation](#customisation)
-  * [Console/gamemode selection bindings](#consolegamemode-selection-bindings)
-  * [Creating custom input modes](#creating-custom-input-modes)
-  * [SOCD](#socd)
-  * [Mod X lightshield and R shield tilt](#mod-x-lightshield-and-r-shield-tilt)
-  * [Mode-specific optional features](#mode-specific-optional-features)
-    * [Melee modes](#melee-modes)
-    * [Project M/Project+ mode](#project-mproject-mode)
-  * [Input sources](#input-sources)
-  * [Using the Pico's second core](#using-the-picos-second-core)
-* [Troubleshooting](#troubleshooting)
-* [Contributing](#contributing)
-* [Contributors](#contributors)
-* [License](#license)
+- [Note](#note)
+- [HayBox](#haybox)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Installation](#installation)
+    - [Pre-built binaries](#pre-built-binaries)
+    - [Building from source](#building-from-source)
+      - [Building locally](#building-locally)
+      - [Building using GitHub Codespaces](#building-using-github-codespaces)
+      - [Building using GitHub Actions](#building-using-github-actions)
+  - [Usage](#usage)
+    - [Default button holds](#default-button-holds)
+      - [Pico bootsel mode](#pico-bootsel-mode)
+      - [Brook board passthrough mode](#brook-board-passthrough-mode)
+      - [Communication backends (console selection)](#communication-backends-console-selection)
+      - [Game mode selection](#game-mode-selection)
+    - [Dolphin setup](#dolphin-setup)
+  - [Customisation](#customisation)
+    - [Console/gamemode selection bindings](#consolegamemode-selection-bindings)
+      - [Communication backends (console selection)](#communication-backends-console-selection-1)
+      - [Input modes](#input-modes)
+    - [Creating custom input modes](#creating-custom-input-modes)
+      - [Keyboard modes](#keyboard-modes)
+      - [Controller modes](#controller-modes)
+    - [SOCD](#socd)
+    - [Mod X lightshield and R shield tilt](#mod-x-lightshield-and-r-shield-tilt)
+    - [Mode-specific optional features](#mode-specific-optional-features)
+      - [Melee modes](#melee-modes)
+      - [Project M/Project+ mode](#project-mproject-mode)
+    - [Input sources](#input-sources)
+    - [Using the Pico's second core](#using-the-picos-second-core)
+  - [Troubleshooting](#troubleshooting)
+    - [Controller not working with console or GameCube adapter](#controller-not-working-with-console-or-gamecube-adapter)
+  - [Contributing](#contributing)
+    - [Versioning](#versioning)
+  - [Built With](#built-with)
+  - [Contributors](#contributors)
+    - [Acknowledgments](#acknowledgments)
+  - [License](#license)
 
 ## Features
 
