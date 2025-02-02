@@ -5,12 +5,17 @@
 #define ANALOG_STICK_MAX 255 
 
 Rivals2::Rivals2(socd::SocdType socd_type) {
-    _socd_pair_count = 4;
+    _socd_pair_count = 8;
     _socd_pairs = new socd::SocdPair[_socd_pair_count]{
         socd::SocdPair{&InputState::left,    &InputState::right,   socd_type},
         socd::SocdPair{ &InputState::down,   &InputState::up,      socd_type},
         socd::SocdPair{ &InputState::c_left, &InputState::c_right, socd_type},
         socd::SocdPair{ &InputState::c_down, &InputState::c_up,    socd_type},
+        /* SOCD Pairs for Attack Button and directions; with tilt stick I never use Button A for tilts or aerials*/
+        socd::SocdPair{ &InputState::left,   &InputState::a, socd_type},
+        socd::SocdPair{ &InputState::right,  &InputState::a, socd_type},
+        socd::SocdPair{ &InputState::down,   &InputState::a, socd_type},
+        socd::SocdPair{ &InputState::up,     &InputState::a, socd_type},
     };
 }
 
