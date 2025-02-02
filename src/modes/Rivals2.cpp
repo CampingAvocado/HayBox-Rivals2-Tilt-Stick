@@ -98,7 +98,7 @@ void Rivals2::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
         }
         
         if(directions.vertical) {
-            outputs.leftStickY = 128 + (directions.y * 53); // 48 (0.31~ in-game), 0.3 allows tilts and shield drop
+            outputs.leftStickY = 128 + (directions.y * 90); // 0.75~ in-game. will shield drop and tap jump; will not fast fall
         }
 
         if (directions.diagonal && shield_button_pressed) { //for max-length diagonal wavedash while holding ModX
@@ -181,7 +181,7 @@ void Rivals2::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
         }
 
         if(directions.vertical) {
-            outputs.leftStickY = 128 + (directions.y * 90); // 0.75~ in-game. will shield drop and tap jump; will not fast fall
+            outputs.leftStickY = 128 + (directions.y * 53);  // 48 (0.31~ in-game), 0.3 allows tilts and shield drop
         }
 
         if (directions.diagonal && !shield_button_pressed) {
