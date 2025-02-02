@@ -4,9 +4,6 @@
 #define ANALOG_STICK_NEUTRAL 128
 #define ANALOG_STICK_MAX 255 
 
-bool input_persist; //for angled tilts
-int timer = 0; //for angled tilts
-
 Rivals2::Rivals2(socd::SocdType socd_type) {
     _socd_pair_count = 4;
     _socd_pairs = new socd::SocdPair[_socd_pair_count]{
@@ -78,20 +75,6 @@ void Rivals2::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
         outputs.leftStickY = 128 + (directions.y * 92);  
     }
 
-    // MX Angled Tilts
-    //(x, y), (69, 53), (~0.506, ~0.31) [coords, code_values, in-game values]
-    if (input_persist) { //input_persist becomes true if ModX + diagonal + A
-        timer++;
-        outputs.leftStickX = 128 + (directions.x * 69);
-        outputs.leftStickY = 128 + (directions.y * 53);
-    }
-
-    if (timer == 150) { // 150 has a 90% success rate on pico
-        timer = 0;
-        input_persist = false;
-    }
-
-
     if (inputs.mod_x) {
         if (directions.horizontal) {
             outputs.leftStickX = 128 + (directions.x * 76); //76 gives 0.58~ in-game for a medium speed walk. will also do tilts 
@@ -134,7 +117,7 @@ void Rivals2::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
                 }
             }
             /* 60% Magnitude UpB when not holding B nor Z*/
-            if (!inputs.z && !inputs.b && !input_persist) {
+            if (!inputs.z && !inputs.b) {
                 // (x, y), (68, 42), (~0.49, ~0.188) [coords, code_values, in-game values]
                 outputs.leftStickX = 128 + (directions.x * 68);
                 outputs.leftStickY = 128 + (directions.y * 42);
@@ -164,13 +147,6 @@ void Rivals2::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs) {
                 // (x, y), (53, 68), (~0.31, ~0.188) [coords, code_values, in-game values] 
                 outputs.leftStickX = 128 + (directions.x * 53);
                 outputs.leftStickY = 128 + (directions.y * 42);
-            }
-            /*ModX Angled Tilts*/
-            if (inputs.a) {
-                input_persist = true;
-                timer = 0;
-                outputs.leftStickX = 128 + (directions.x * 69);
-                outputs.leftStickY = 128 + (directions.y * 53);
             }
         }
     }
